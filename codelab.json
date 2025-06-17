@@ -1,0 +1,25 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2025-06-16T20:06:18-04:00",
+  "id": "how-to-embed-web-msdk-zoom-app",
+  "duration": 0,
+  "title": "Enable Zoom App Real Time Media Streams: RTMS-enabled Zoom app",
+  "authors": "Donte",
+  "summary": "How to  access and use Zoom Apps Real Time Media Stream data with Zoom SDK",
+  "source": "13_embedded-web-msdk.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "sample"
+  ],
+  "tags": [
+    "medium"
+  ],
+  "feedback": "https://devforum.zoom.us/c/zoom-apps",
+  "url": "how-to-embed-web-msdk-zoom-app"
+}

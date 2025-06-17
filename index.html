@@ -1,0 +1,105 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Enable Zoom App Real Time Media Streams: RTMS-enabled Zoom app</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
+                  id="how-to-embed-web-msdk-zoom-app"
+                  title="Enable Zoom App Real Time Media Streams: RTMS-enabled Zoom app"
+                  environment="web"
+                  feedback-link="https://devforum.zoom.us/c/zoom-apps">
+    
+      <google-codelab-step label="Before you begin" duration="0">
+        <p>Demo Add Zoom APP to meeting API</p>
+<p>This codelab is part 11 of 11 in a series focused on extending a Next.js Task Manager app into the Zoom Developer Platform. Throughout this series, you&#39;ll learn how to create a feature-rich Zoom Marketplace app that both integrates third-party applications into Zoom products and brings Zoom functionality into third-party applications. In this series, you will learn core concepts for building engaging experiences within the Zoom Workplace—including Zoom Apps, Team Chat, chatbots, and features for deep linking from browser to Zoom client.</p>
+<h2 is-upgraded>How to use this codelab</h2>
+<p>This codelab is organized by product to help you quickly find information about integrating your app into the Zoom Workplace platform. Each section provides concise, practical code examples that you can adapt to your use cases, along with links to deeper resources on specific topics. For implementation guidance, you can focus on the specific topics most relevant to your needs.</p>
+<p>Part 1: <a href="https://just-zoomit.github.io/multi-feature-zoom-manifest-file/#0" target="_blank">Create a multi-feature Zoom app with a manifest file: Team Chat, Chatbot and Meetings</a></p>
+<p>Part 2: <a href="https://just-zoomit.github.io/zoomapp-taskmanager-codelab/#0" target="_blank">Setup development environment: Zoom, Ngrok, and Supabase developer accounts</a></p>
+<p>Part 3: <a href="https://just-zoomit.github.io/how-to-install-and-authorize-zoom-app-sdk-with-supabase/#0" target="_blank">Install and authorize multi-feature app integration: Zoom App, Team Chat, and Supabase Auth</a></p>
+<p>Part 4: <a href="https://just-zoomit.github.io/how-to-integrate-a-zoomapp-nextjs/#0" target="_blank">Integrate multi-feature Zoom app integration: Chatbot and Team Chat</a></p>
+<p>Part 5: <a href="https://just-zoomit.github.io/how-to-integrate-teamchat-za/#0" target="_blank">Integrate multi-feature app integration: Team Chat</a></p>
+<p>Part 6: <a href="https://just-zoomit.github.io/how-to-deep-link-zoom-client-za/#0" target="_blank">Integrate multi-feature app integration: Deep Linking</a></p>
+<p>Part 7: <a href="https://just-zoomit.github.io/how-to-integrate-webhooks-za/#0" target="_blank">Integrate multi-feature app integration: Webhooks</a></p>
+<p>Part 8: <a href="https://just-zoomit.github.io/how-to-integrate-slash-commands-za/#0" target="_blank">Integrate multi-feature app integration: Slash Commands</a></p>
+<p>Part 9: <a href="https://just-zoomit.github.io/how-to-integrate-zoom-app-sdk/#0" target="_blank">Integrate multi-feature app integration: Zoom App SDK</a></p>
+<p>Part 10: <a href="https://just-zoomit.github.io/build-collabo-meeting-experiences-zoomapp-sdk/#0" target="_blank">Build collaborative meeting experiences: Zoom App SDK</a></p>
+<p>Part 11: <a href="https://just-zoomit.github.io/how-to-build-collabo-meeting-experiences-zoom-app-sdk/#0" target="_blank">Build collaborative team chat experiences: Zoom App Framework</a></p>
+<p><strong>Part 12: </strong><a href="https://just-zoomit.github.io/enable-rtms-zoomapp-sdk/#0" target="_blank"><strong>Enable Zoom App Real Time Media Streams: RTMS-enabled app</strong></a></p>
+<p>Part 13:<a target="_blank">Build AI and machine learning meeting experiences: RTMS-enabled app</a></p>
+<p>Part 14: <a target="_blank">Embed the Zoom Meeting and Zoom Webinar experiences: Zoom Web Meeting SDK</a></p>
+<p>⚠️ <strong>Warning:</strong> This guide assumes you&#39;re familiar building within the Zoom Workspace. You can start here or go back to the beginning of the full guide if you&#39;re new to Zoom App development.</p>
+<p>💡 <strong>Tip:</strong> If you don&#39;t have a paid workspace for development, you can join the <a href="https://api.slack.com/developer-program" target="_blank">Developer Program</a> and provision a sandbox with access to all Zoom Developer platform features for free.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="What you&#39;ll learn" duration="0">
+        <p>[Add Content]</p>
+<h2 is-upgraded>What you&#39;ll need</h2>
+<ul>
+<li>Git</li>
+<li>Node.js</li>
+<li>Browser</li>
+<li>Code editor and terminal</li>
+</ul>
+<h2 is-upgraded>Prerequisites</h2>
+<ul>
+<li>A Zoom Developer Account</li>
+<li>A Supabase Account</li>
+<li>A Ngrok Account</li>
+<li>A Upstash Account (Redis Cache)</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Project Setup" duration="0">
+        <ol type="1">
+<li>Clone the project and switch to the correct branch:</li>
+</ol>
+<pre><code language="language-bash" class="language-bash">git clone https://github.com/zoom/task-manager-sample.git
+cd task-manager-sample
+git checkout step-11-access-meeting-content-rtms
+</code></pre>
+<ol type="1" start="2">
+<li>Install dependencies and start the app:</li>
+</ol>
+<pre><code language="language-bash" class="language-bash">npm install
+npm run dev
+
+</code></pre>
+<p>Now, you have a Zoom account with RTMS enabled.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>
