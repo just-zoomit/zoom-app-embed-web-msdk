@@ -3,13 +3,13 @@
   "format": "html",
   "prefix": "https://storage.googleapis.com",
   "mainga": "UA-49880327-14",
-  "updated": "2025-06-16T20:30:57-04:00",
+  "updated": "2025-07-11T14:03:48-04:00",
   "id": "how-to-embed-web-msdk-zoom-app",
   "duration": 0,
   "title": "Embed the Zoom meeting and webinar experience: Web Meeting SDK",
   "authors": "Donte",
-  "summary": "How to  access and use Zoom Apps Real Time Media Stream data with Zoom SDK",
-  "source": "13_embedded-web-msdk.md",
+  "summary": "How to embed the Zoom meeting and webinar experience in Nextjs web application",
+  "source": "42_embedded-web-msdk.md",
   "theme": "",
   "status": [
     "published"

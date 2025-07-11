@@ -29,66 +29,259 @@
                   feedback-link="https://devforum.zoom.us/c/zoom-apps">
     
       <google-codelab-step label="Before you begin" duration="0">
-        <p>Demo Add Zoom APP to meeting API</p>
-<p>This codelab is part 11 of 11 in a series focused on extending a Next.js Task Manager app into the Zoom Developer Platform. Throughout this series, you&#39;ll learn how to create a feature-rich Zoom Marketplace app that both integrates third-party applications into Zoom products and brings Zoom functionality into third-party applications. In this series, you will learn core concepts for building engaging experiences within the Zoom Workplace—including Zoom Apps, Team Chat, chatbots, and features for deep linking from browser to Zoom client.</p>
-<h2 is-upgraded>How to use this codelab</h2>
-<p>This codelab is organized by product to help you quickly find information about integrating your app into the Zoom Workplace platform. Each section provides concise, practical code examples that you can adapt to your use cases, along with links to deeper resources on specific topics. For implementation guidance, you can focus on the specific topics most relevant to your needs.</p>
-<p>Part 1: <a href="https://just-zoomit.github.io/multi-feature-zoom-manifest-file/#0" target="_blank">Create a multi-feature Zoom app with a manifest file: Team Chat, Chatbot and Meetings</a></p>
-<p>Part 2: <a href="https://just-zoomit.github.io/zoomapp-taskmanager-codelab/#0" target="_blank">Setup development environment: Zoom, Ngrok, and Supabase developer accounts</a></p>
-<p>Part 3: <a href="https://just-zoomit.github.io/how-to-install-and-authorize-zoom-app-sdk-with-supabase/#0" target="_blank">Install and authorize multi-feature app integration: Zoom App, Team Chat, and Supabase Auth</a></p>
-<p>Part 4: <a href="https://just-zoomit.github.io/how-to-integrate-a-zoomapp-nextjs/#0" target="_blank">Integrate multi-feature Zoom app integration: Chatbot and Team Chat</a></p>
-<p>Part 5: <a href="https://just-zoomit.github.io/how-to-integrate-teamchat-za/#0" target="_blank">Integrate multi-feature app integration: Team Chat</a></p>
-<p>Part 6: <a href="https://just-zoomit.github.io/how-to-deep-link-zoom-client-za/#0" target="_blank">Integrate multi-feature app integration: Deep Linking</a></p>
-<p>Part 7: <a href="https://just-zoomit.github.io/how-to-integrate-webhooks-za/#0" target="_blank">Integrate multi-feature app integration: Webhooks</a></p>
-<p>Part 8: <a href="https://just-zoomit.github.io/how-to-integrate-slash-commands-za/#0" target="_blank">Integrate multi-feature app integration: Slash Commands</a></p>
-<p>Part 9: <a href="https://just-zoomit.github.io/how-to-integrate-zoom-app-sdk/#0" target="_blank">Integrate multi-feature app integration: Zoom App SDK</a></p>
-<p>Part 10: <a href="https://just-zoomit.github.io/build-collabo-meeting-experiences-zoomapp-sdk/#0" target="_blank">Build collaborative meeting experiences: Zoom App SDK</a></p>
-<p>Part 11: <a href="https://just-zoomit.github.io/how-to-build-collabo-meeting-experiences-zoom-app-sdk/#0" target="_blank">Build collaborative team chat experiences: Zoom App Framework</a></p>
-<p>Part 12: <a href="https://just-zoomit.github.io/enable-rtms-zoomapp-sdk/#0" target="_blank">Enable Zoom App Real Time Media Streams: Media-accessing apps</a></p>
-<p>Part 13: <a href="https://just-zoomit.github.io/access-meeting-content-rtms-zoom-app/#0" target="_blank">Build AI and machine learning meeting experiences: RTMS-enabled app</a></p>
-<p><strong>Part 14: </strong><a href="https://just-zoomit.github.io/zoom-app-embed-web-msdk/#0" target="_blank"><strong>Embed the Zoom Meeting and Zoom Webinar experiences: Zoom Web Meeting SDK</strong></a></p>
-<p>⚠️ <strong>Warning:</strong> This guide assumes you&#39;re familiar building within the Zoom Workspace. You can start here or go back to the beginning of the full guide if you&#39;re new to Zoom App development.</p>
-<p>💡 <strong>Tip:</strong> If you don&#39;t have a paid workspace for development, you can join the <a href="https://api.slack.com/developer-program" target="_blank">Developer Program</a> and provision a sandbox with access to all Zoom Developer platform features for free.</p>
-
-
-      </google-codelab-step>
-    
-      <google-codelab-step label="What you&#39;ll learn" duration="0">
-        <p>[Add Content]</p>
-<h2 is-upgraded>What you&#39;ll need</h2>
+        <h2 is-upgraded>Prerequisites:</h2>
 <ul>
-<li>Git</li>
-<li>Node.js</li>
-<li>Browser</li>
-<li>Code editor and terminal</li>
-</ul>
-<h2 is-upgraded>Prerequisites</h2>
-<ul>
-<li>A Zoom Developer Account</li>
-<li>A Supabase Account</li>
-<li>A Ngrok Account</li>
-<li>A Upstash Account (Redis Cache)</li>
+<li>Node LTS &amp; NPM</li>
+<li>A Zoom <a href="https://marketplace.zoom.us/" target="_blank">Meeting SDK Account</a></li>
 </ul>
 
 
       </google-codelab-step>
     
-      <google-codelab-step label="Project Setup" duration="0">
-        <ol type="1">
-<li>Clone the project and switch to the correct branch:</li>
-</ol>
-<pre><code language="language-bash" class="language-bash">git clone https://github.com/zoom/task-manager-sample.git
-cd task-manager-sample
-git checkout step-11-access-meeting-content-rtms
-</code></pre>
-<ol type="1" start="2">
-<li>Install dependencies and start the app:</li>
-</ol>
-<pre><code language="language-bash" class="language-bash">npm install
-npm run dev
+      <google-codelab-step label="Create a project" duration="0">
+        <p>Install version 14.2.0, newer version do not work.</p>
+<p>Use the Next.js CLI to set up a new project:</p>
+<pre><code language="language-javascript" class="language-javascript">npx create-next-app@14.2.0
 
 </code></pre>
-<p>Now, you have a Zoom account with RTMS enabled.</p>
+<p>We&#39;re using v14.2.0 of the NextJS - newer version do not work.</p>
+<h2 is-upgraded>Configure NextJS  App:</h2>
+<pre><code language="language-bash" class="language-bash">What is your project named? msdk-nextjs
+Would you like to use TypeScript? Yes/No
+Would you like to use ESLint? Yes
+Would you like to use Tailwind CSS? No
+Would you like to use `src/` directory? Yes
+Would you like to use App Router? (recommended) Yes
+Would you like to customize the default import alias (@/*)? No
+
+</code></pre>
+<h2 is-upgraded>Project Structure</h2>
+<p>Your project structure will look like this (if using the app/ directory):</p>
+<pre><code language="language-bash" class="language-bash">your-project/
+├── app/                # Contains pages and layouts (Next.js 13+)
+│   ├── layout.tsx      # Root layout file
+│   └── page.tsx        # Default page file
+│   ├── api/  # Zoom Meeting SDK Component
+│       ├── generateSignature.tsx  # Zoom Meeting SDK Signature
+├── component/           # Contains Components
+│   ├── ZoomComponent.tsx  # Zoom Meeting SDK Component
+├── public/             # Static assets like images, fonts, etc.
+├── styles/             # Global CSS files
+├── next.config.js      # Next.js configuration
+├── package.json        # Project dependencies and scripts
+└── tsconfig.json       # TypeScript configuration (if enabled)
+
+
+</code></pre>
+<h2 is-upgraded>Install dependencies</h2>
+<pre><code language="language-javascript" class="language-javascript">$ npm install @zoom/meetingsdk jsrsasign
+
+</code></pre>
+<h2 is-upgraded>Add Environment Variables</h2>
+<pre><code language="language-javascript" class="language-javascript">ZOOM_MEETING_SDK_KEY=oqq_jJcrRfSpcB661c0xug
+ZOOM_MEETING_SDK_SECRET=fCUNYivMg43xqXCyjEvmE2ETzSQsXm2F
+NEXT_RUNTIME_LOG=1
+NODE_OPTIONS=--trace-warnings
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Authenticate Meeting SDK" duration="0">
+        <p>Create a route to handle generating a Meeting SDK JWT to join Zoom meetings and webinars with the Meeting SDK.</p>
+<pre><code language="language-javascript" class="language-javascript">src/api/generateSignatureResponse
+
+import type { NextApiRequest, NextApiResponse } from &#34;next&#34;;
+import { KJUR } from &#34;jsrsasign&#34;;
+
+type GenerateSignatureResponse = {
+  signature?: string;
+  error?: string;
+};
+
+// API handler
+export default function handler(
+  req: NextApiRequest,
+  res: NextApiResponse&lt;GenerateSignatureResponse&gt;
+) {
+  // Add CORS headers for cross-origin requests
+  res.setHeader(&#34;Access-Control-Allow-Origin&#34;, &#34;*&#34;);
+  res.setHeader(&#34;Access-Control-Allow-Methods&#34;, &#34;POST&#34;);
+  res.setHeader(&#34;Access-Control-Allow-Headers&#34;, &#34;Content-Type&#34;);
+
+ 
+
+  // Allow only POST requests
+  if (req.method !== &#34;POST&#34;) {
+    return res.status(405).json({ error: &#34;Method not allowed. Use POST.&#34; });
+  }
+
+  // Parse request body
+  const { meetingNumber, role, expirationSeconds } = req.body;
+  
+  // Validate inputs
+  if (!meetingNumber || typeof meetingNumber !== &#34;string&#34;) {
+    return res.status(400).json({ error: &#34;Invalid or missing &#39;meetingNumber&#39;.&#34; });
+  }
+  
+  if (role === undefined || (role !== &#34;0&#34; &amp;&amp; role !== &#34;1&#34;)) {
+    return res.status(400).json({ error: &#34;Invalid or missing &#39;role&#39;. Use 0 for attendee and 1 for host.&#34; });
+  }
+
+  // Get SDK credentials from environment variables
+  const sdkKey = process.env.ZOOM_MEETING_SDK_KEY;
+  const sdkSecret = process.env.ZOOM_MEETING_SDK_SECRET;
+  console.log(meetingNumber, role, expirationSeconds)
+  if (!sdkKey || !sdkSecret) {
+    return res.status(500).json({ error: &#34;SDK key or secret not configured in environment variables.&#34; });
+  }
+
+  try {
+    // Generate the signature
+    const iat = Math.floor(Date.now() / 1000); // Issued at time
+    const exp = expirationSeconds
+      ? iat + parseInt(expirationSeconds, 10) // Use provided expirationSeconds
+      : iat + 60 * 60 * 2; // Default to 2 hours
+
+    const oHeader = { alg: &#34;HS256&#34;, typ: &#34;JWT&#34; };
+    const oPayload = {
+      appKey: sdkKey,
+      sdkKey: sdkKey,
+      mn: meetingNumber,
+      role,
+      iat,
+      exp,
+      tokenExp: exp,
+    };
+
+    const sHeader = JSON.stringify(oHeader);
+    const sPayload = JSON.stringify(oPayload);
+
+    const signature = KJUR.jws.JWS.sign(&#34;HS256&#34;, sHeader, sPayload, sdkSecret);
+
+    // Return the generated signature
+    return res.status(200).json({ signature });
+  } catch (error) {
+    console.error(&#34;Error generating SDK signature:&#34;, error);
+    return res.status(500).json({ error: &#34;Internal server error while generating SDK signature.&#34; });
+  }
+}
+
+</code></pre>
+<h2 is-upgraded>Build the Zoom Meeting SDK Component</h2>
+<pre><code language="language-javascript" class="language-javascript">../../components/ZoomMSDComponent
+
+&#34;use client&#34;;
+import React, { useEffect } from &#34;react&#34;;
+import &#34;./page.css&#34;;
+
+export default function Zoom() {
+  const authEndpoint = &#34;http://localhost:4000&#34;;
+  const sdkKey = &#34;YourSDKKey&#34;;
+  const meetingNumber = &#34;96142926553&#34;;
+  const passWord = &#34;726068&#34;;
+  const role = 0;
+  const userName = &#34;React&#34;;
+  const userEmail = &#34;&#34;;
+  const registrantToken = &#34;&#34;;
+  const zakToken = &#34;&#34;;
+  var leaveUrl = &#34;http://localhost:3000&#34;;
+
+  useEffect(() =&gt; {
+    init();
+  }, []);
+
+  async function init() {
+    const { ZoomMtg } = await import(&#34;@zoom/meetingsdk&#34;);
+   
+    ZoomMtg.preLoadWasm();
+    ZoomMtg.prepareWebSDK();
+    document.getElementById(&#34;zmmtg-root&#34;).style.display = &#34;none&#34;;
+  }
+
+  function getSignature(e) {
+    e.preventDefault();
+
+    fetch(authEndpoint, {
+      method: &#34;POST&#34;,
+      headers: { &#34;Content-Type&#34;: &#34;application/json&#34; },
+      body: JSON.stringify({
+        meetingNumber: meetingNumber,
+        role: role,
+      }),
+    })
+      .then((res) =&gt; res.json())
+      .then((response) =&gt; {
+        startMeeting(response.signature);
+      })
+      .catch((error) =&gt; {
+        console.error(error);
+      });
+  }
+
+  async function startMeeting(signature) {
+    document.getElementById(&#34;zmmtg-root&#34;).style.display = &#34;block&#34;;
+    const { ZoomMtg } = await import(&#34;@zoom/meetingsdk&#34;);
+
+    ZoomMtg.init({
+      leaveUrl: leaveUrl,
+      success: (success) =&gt; {
+        console.log(success);
+
+        ZoomMtg.join({
+          signature,
+          sdkKey,
+          meetingNumber,
+          passWord,
+          userName,
+          userEmail,
+          tk: registrantToken,
+          zak: zakToken,
+          success: (success) =&gt; {
+            console.log(success);
+          },
+          error: (error) =&gt; {
+            console.log(error);
+          },
+        });
+      },
+      error: (error) =&gt; {
+        console.log(error);
+      },
+    });
+  }
+
+  return (
+    &lt;div className=&#34;main&#34;&gt;
+      &lt;main&gt;
+        &lt;h1&gt;Zoom Meeting SDK Sample React&lt;/h1&gt;
+
+        &lt;button onClick={getSignature}&gt;Join Meeting&lt;/button&gt;
+      &lt;/main&gt;
+    &lt;/div&gt;
+  );
+}
+
+</code></pre>
+<h2 is-upgraded>Dynamic route Meeting SDK</h2>
+<p>Import the Zoom SDK dynamically to reduce the initial bundle size. This ensures the SDK is only loaded on the client-side and avoids unnecessary overhead during server-side rendering.</p>
+<pre><code language="language-javascript" class="language-javascript">src/app/page.tsx
+
+import dynamic from &#34;next/dynamic&#34;;
+
+const ZoomComponent = dynamic(() =&gt; import(&#34;./ZoomComponent&#34;));
+
+export default function HomePage() {
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Zoom Meeting SDK Sample with Next.js&lt;/h1&gt;
+      &lt;ZoomComponent /&gt;
+    &lt;/div&gt;
+  );
+}
+
+
+</code></pre>
 
 
       </google-codelab-step>
